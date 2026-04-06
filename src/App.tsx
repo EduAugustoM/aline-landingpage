@@ -144,7 +144,7 @@ function App() {
             {/* O vídeo formatado (quadrado) - Restaurando arredondamento premium */}
             <div className="relative w-full max-w-md aspect-[4/5] md:aspect-square overflow-hidden">
               <img 
-                src="/assets/PlidoLaranjaSlido2_1-ezgif.com-video-to-webp-converter.webp" 
+                src="/assets/alisamento-perfeito.webp" 
                 alt="Alisamento Perfeito" 
                 className="w-full h-full object-cover" 
               />
@@ -222,7 +222,7 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 gsap-stagger-list relative z-10">
             {[1, 2, 3].map((item) => (
               <div key={item} className="relative aspect-[4/5] rounded-[2rem] overflow-hidden bg-white/5 border border-white/10 shadow-2xl">
-                <img src={`/assets/WhatsApp Image 2026-04-04 at 23.11.12.jpeg`} alt="Antes e Depois" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                <img src={`/assets/antes-depois-1.jpeg`} alt="Antes e Depois" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
               </div>
             ))}
           </div>
@@ -306,7 +306,7 @@ function App() {
             
             <div className="gsap-fade-up flex justify-center order-2 lg:order-1">
               <div className="w-full max-w-lg aspect-[4/5] md:aspect-square rounded-[3rem] overflow-hidden shadow-2xl border border-white/30 transition-all duration-700 hover:-translate-y-4 hover:rotate-2 hover:shadow-[0_20px_50px_rgba(140,106,58,0.4)]">
-                 <img src="/assets/Prancheta 1.png" alt="Cuidados" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                 <img src="/assets/prancheta-1.png" alt="Cuidados" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
               </div>
             </div>
             
@@ -372,7 +372,7 @@ function App() {
       <section id="sobre" className="gsap-panel w-full min-h-screen py-32 bg-[#1C1A14] text-background px-6 md:px-12 z-50 shadow-2xl relative">
         <div className="max-w-7xl mx-auto h-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="gsap-fade-up relative h-[400px] md:h-[550px] rounded-[3rem] overflow-hidden border border-primary/30 shadow-2xl transition-all duration-700 hover:-translate-y-4 hover:-rotate-1 hover:shadow-[0_20px_50px_rgba(184,130,10,0.3)]">
-            <img src="/assets/WhatsApp Image 2026-01-05 at 16.44.18.jpeg" alt="Aline Oliveira" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+            <img src="/assets/aline-profile.jpeg" alt="Aline Oliveira" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
           </div>
           
