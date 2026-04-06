@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Design System — Aline Oliveira Alisamentos</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+/* IvyOra Display: fonte licenciada via Monotype. Fallback: Playfair Display */
+.font-ivy {
+  font-family: 'IvyOra Display', 'Playfair Display', Georgia, serif;
+}
+
+body {
+  font-family: 'Jost', sans-serif;
+  background-color: #F0E8D8;
+  color: #1C1A14;
+}
+
+/* Navigation */
+.ds-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(240, 232, 216, 0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(184,130,10,0.15);
+}
+.ds-nav-links { display: flex; gap: 1.75rem; flex-wrap: wrap; padding: 1rem 0; align-items: center; }
+.ds-nav-links a {
+  font-size: 0.8rem; font-weight: 500; color: #8C6A3A;
+  text-decoration: none; transition: color 0.2s;
+  letter-spacing: 0.06em;
+}
+.ds-nav-links a:hover { color: #1C1A14; }
+
+/* Section */
+.ds-section { scroll-margin-top: 80px; }
+
+/* Section heading */
+.section-h2 {
+  font-family: 'IvyOra Display', 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: #1C1A14;
+  margin-bottom: 3rem;
+}
+.section-h3 {
+  font-family: 'IvyOra Display', 'Playfair Display', Georgia, serif;
+  font-size: 1.75rem; font-weight: 500;
+  color: #1C1A14; margin-bottom: 2rem;
+}
+
+/* Typography spec table */
+.typography-spec { width: 100%; border-collapse: collapse; }
+.typography-spec tr { border-bottom: 1px solid rgba(184,130,10,0.1); }
+.typography-spec td { padding: 1.5rem 0; vertical-align: baseline; }
+.typography-spec td:first-child {
+  width: 160px; font-size: 0.7rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: #8C6A3A;
+}
+.typography-spec td:last-child {
+  width: 200px; text-align: right;
+  font-size: 0.7rem; color: #8C6A3A;
+}
+
+/* Color grid */
+.color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1.25rem; }
+.color-swatch { border-radius: 0.875rem; overflow: hidden; border: 1px solid rgba(184,130,10,0.15); }
+.color-swatch-preview { height: 100px; width: 100%; }
+.color-swatch-info { padding: 0.875rem; background: rgba(255,255,255,0.65); }
+.color-swatch-name { font-weight: 500; font-size: 0.8rem; margin-bottom: 0.2rem; color: #1C1A14; }
+.color-swatch-value { font-size: 0.7rem; color: #8C6A3A; font-family: monospace; }
+
+/* Component layout */
+.component-showcase { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; }
+.component-state { display: flex; flex-direction: column; gap: 0.5rem; }
+.component-state-label {
+  font-size: 0.68rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em; color: #8C6A3A;
+}
+
+/* Ornamental divider */
+.divider-ornamental { display: flex; align-items: center; gap: 12px; }
+.div-line { flex: 1; height: 0.5px; background: rgba(184,130,10,0.3); }
+.div-diamond { width: 6px; height: 6px; background: #B8820A; transform: rotate(45deg); flex-shrink: 0; }
+
+/* Service card accent */
+.service-card-accent {
+  border-left: 3px solid #B8820A !important;
+  border-radius: 0 12px 12px 0 !important;
+}
+</style>
+</head>
+<body class="min-h-screen flex flex-col overflow-x-hidden">
+
+<!-- Nav -->
+<nav class="ds-nav w-full px-6 md:px-12">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <span class="font-ivy text-base tracking-widest" style="color:#B8820A; letter-spacing:0.18em;">Aline Oliveira</span>
+    <div class="ds-nav-links">
+      <a href="#hero">Identidade</a>
+      <a href="#typography">Tipografia</a>
+      <a href="#colors">Cores</a>
+      <a href="#components">Componentes</a>
+      <a href="#layout">Layout</a>
+      <a href="#motion">Movimento</a>
+      <a href="#icons">Ícones</a>
+    </div>
+  </div>
+</nav>
+
+<!-- 0) Hero -->
+<section id="hero" class="ds-section flex-grow flex flex-col md:px-12 lg:flex-row lg:gap-20 lg:pb-12 w-full max-w-7xl mr-auto ml-auto pr-6 pb-12 pl-6 relative gap-x-12 gap-y-12 items-center justify-center" style="min-height:90vh;">
+  <div class="flex-1 w-full flex flex-col items-start pt-12 lg:pt-0 z-10">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-sm mb-8" style="border-color:rgba(184,130,10,0.3); background:rgba(184,130,10,0.08); color:#7A4A1E;">
+      <span class="w-2 h-2 rounded-full animate-pulse" style="background:#B8820A;"></span>
+      <span style="font-family:'Jost',sans-serif;">Design System — v1.0</span>
+    </div>
+    <h1 class="font-ivy leading-[0.95] tracking-tight mb-6" style="font-size:clamp(4rem,9vw,7rem); color:#1C1A14; font-weight:300;">
+      <span class="block font-ivy" style="color:#8C6A3A; font-weight:300; font-size:0.65em;">Aline</span>
+      Oliveira
+      <span class="block font-ivy" style="color:#B8820A; font-size:0.45em; letter-spacing:0.25em; font-weight:400;">ALISAMENTOS</span>
+    </h1>
+    <p class="text-lg md:text-xl max-w-lg leading-relaxed mb-10" style="color:#57534e; font-family:'Jost',sans-serif; font-weight:300;">
+      Guia completo de identidade visual — tipografia, cores, componentes e padrões de interação para todos os canais da marca.
+    </p>
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto mb-16">
+      <button class="w-full sm:w-auto px-8 py-4 rounded-full text-base font-medium flex items-center justify-center gap-3 group transition-all hover:opacity-90" style="background:#1C1A14; color:#F0E8D8; font-family:'Jost',sans-serif; letter-spacing:0.12em;">
+        <span>Explorar Componentes</span>
+        <iconify-icon class="group-hover:translate-x-1 transition-transform" icon="solar:arrow-right-linear" width="18"></iconify-icon>
+      </button>
+      <button class="w-full sm:w-auto px-8 py-4 rounded-full text-base font-medium flex items-center justify-center gap-3 transition-colors" style="background:transparent; border:1px solid rgba(184,130,10,0.35); color:#1C1A14; font-family:'Jost',sans-serif; letter-spacing:0.12em;">
+        <iconify-icon icon="solar:eye-linear" width="18"></iconify-icon>
+        <span>Ver Padrões</span>
+      </button>
+    </div>
+    <div class="w-full pt-8" style="border-top:1px solid rgba(184,130,10,0.15);">
+      <p class="text-xs mb-4 font-medium uppercase tracking-widest" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Tokens da Marca</p>
+      <div class="flex flex-wrap items-center gap-8" style="opacity:0.6;">
+        <span class="font-ivy" style="font-size:1.125rem; color:#B8820A;">Tipografia</span>
+        <span style="font-family:'Jost',sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#8C6A3A;">Paleta</span>
+        <div class="flex gap-2">
+          <div class="w-4 h-4 rounded-full" style="background:#B8820A;"></div>
+          <div class="w-4 h-4 rounded-full" style="background:#F5C842;"></div>
+          <div class="w-4 h-4 rounded-full" style="background:#7A4A1E;"></div>
+          <div class="w-4 h-4 rounded-full" style="background:#1C1A14;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero visual -->
+  <div class="flex-1 w-full h-full relative flex items-center justify-center lg:justify-end py-10 lg:py-20">
+    <iconify-icon class="absolute top-0 right-10 hidden lg:block" style="color:rgba(184,130,10,0.35);" icon="solar:star-fall-linear" width="48"></iconify-icon>
+    <div class="relative w-full max-w-md" style="aspect-ratio:3/4;">
+      <!-- Arched brand card -->
+      <div class="absolute inset-0 overflow-hidden shadow-2xl group" style="border-radius:10rem 10rem 2rem 2rem; background:#1C1A14; box-shadow:0 24px 48px rgba(28,26,20,0.3);">
+        <div class="absolute inset-0 opacity-15" style="background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(184,130,10,0.4) 20px,rgba(184,130,10,0.4) 21px);"></div>
+        <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(28,26,20,0.92) 0%,rgba(28,26,20,0.2) 55%,transparent 100%);"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="font-ivy opacity-[0.07]" style="font-size:160px; font-weight:300; color:#F0E8D8; line-height:1;">A</div>
+        </div>
+        <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between" style="color:#F0E8D8;">
+          <div>
+            <p class="text-xs uppercase tracking-widest mb-1" style="color:rgba(240,232,216,0.55); font-family:'Jost',sans-serif;">Design System</p>
+            <p class="font-ivy font-light" style="font-size:1.5rem;">Identidade Visual</p>
+          </div>
+          <button class="w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(184,130,10,0.3); backdrop-filter:blur(8px);">
+            <iconify-icon icon="solar:map-arrow-right-linear" width="22"></iconify-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Floating palette card -->
+      <div class="absolute -bottom-10 -left-4 md:-left-12 w-64 rounded-xl overflow-hidden shadow-2xl transform rotate-[-4deg] hover:rotate-0 transition-transform duration-500 z-20" style="background:#B8820A;">
+        <div class="p-5 flex justify-between items-start" style="border-bottom:1px solid rgba(28,26,20,0.2);">
+          <div>
+            <p class="text-xs uppercase tracking-widest mb-1" style="color:rgba(255,248,231,0.65); font-family:'Jost',sans-serif;">Token de Marca</p>
+            <p class="font-ivy" style="color:#FFF8E7; font-size:1.25rem; font-weight:500;">Paleta Dourada</p>
+          </div>
+          <iconify-icon style="color:#FFF8E7;" icon="solar:star-shine-linear" width="22"></iconify-icon>
+        </div>
+        <div class="p-5">
+          <div class="space-y-2 mb-4">
+            <div><p class="text-xs mb-0.5" style="color:rgba(255,248,231,0.55); font-family:'Jost',sans-serif;">Principal</p><p class="text-sm font-medium" style="color:#FFF8E7; font-family:'Jost',sans-serif;">#B8820A — Dourado</p></div>
+            <div><p class="text-xs mb-0.5" style="color:rgba(255,248,231,0.55); font-family:'Jost',sans-serif;">Superfície</p><p class="text-sm font-medium" style="color:#FFF8E7; font-family:'Jost',sans-serif;">#F0E8D8 — Creme</p></div>
+          </div>
+          <div class="flex items-end gap-1 h-8" style="opacity:0.45;">
+            <div class="w-1 h-full rounded-sm" style="background:#FFF8E7;"></div><div class="w-0.5 h-full rounded-sm" style="background:#FFF8E7;"></div>
+            <div class="w-2 h-full rounded-sm" style="background:#FFF8E7;"></div><div class="w-1 h-3/4 rounded-sm" style="background:#FFF8E7;"></div>
+            <div class="w-3 h-full rounded-sm" style="background:#FFF8E7;"></div><div class="w-0.5 h-full rounded-sm" style="background:#FFF8E7;"></div>
+            <div class="w-4 h-full rounded-sm" style="background:#FFF8E7;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating profile card -->
+      <div class="hidden md:block absolute top-12 -right-12 w-52 rounded-2xl p-4 shadow-2xl z-30 transform rotate-[3deg] hover:rotate-0 transition-transform duration-500" style="background:#1C1A14; border:1px solid rgba(184,130,10,0.25);">
+        <div class="flex items-center justify-between mb-3" style="color:rgba(184,130,10,0.6);">
+          <iconify-icon icon="solar:user-circle-linear" width="15"></iconify-icon>
+          <div class="flex gap-1">
+            <div class="w-1.5 h-1.5 rounded-full" style="background:rgba(184,130,10,0.3);"></div>
+            <div class="w-1.5 h-1.5 rounded-full" style="background:rgba(184,130,10,0.3);"></div>
+            <div class="w-1.5 h-1.5 rounded-full" style="background:rgba(184,130,10,0.3);"></div>
+          </div>
+        </div>
+        <div class="w-11 h-11 rounded-full flex items-center justify-center font-ivy text-lg font-semibold mb-3" style="background:linear-gradient(135deg,#D4A017,#8B5E0A); color:#FFF8E7;">A</div>
+        <p class="text-sm font-medium mb-0.5" style="color:#F0E8D8; font-family:'Jost',sans-serif;">Aline Oliveira</p>
+        <p class="text-xs" style="color:#B8820A; font-family:'Jost',sans-serif; letter-spacing:0.04em;">Especialista em alisamento</p>
+        <div class="mt-3 pt-3 flex gap-1 items-end h-8" style="border-top:1px solid rgba(184,130,10,0.2);">
+          <div class="flex-1 rounded-sm" style="background:rgba(184,130,10,0.2); height:40%;"></div>
+          <div class="flex-1 rounded-sm" style="background:rgba(184,130,10,0.4); height:65%;"></div>
+          <div class="flex-1 rounded-sm" style="background:rgba(184,130,10,0.3); height:50%;"></div>
+          <div class="flex-1 rounded-sm" style="background:rgba(184,130,10,0.6); height:80%;"></div>
+          <div class="flex-1 rounded-sm" style="background:#B8820A; height:100%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1) Typography -->
+<section id="typography" class="ds-section w-full py-24 px-6 md:px-12 border-t" style="background:#EDE3D0; border-color:rgba(184,130,10,0.12);">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="section-h2">Tipografia</h2>
+
+    <div class="mb-10 p-5 rounded-xl" style="background:rgba(184,130,10,0.08); border:1px solid rgba(184,130,10,0.2);">
+      <p style="font-family:'Jost',sans-serif; font-size:14px; color:#7A4A1E; line-height:1.75;">
+        <strong style="font-weight:500;">IvyOra Display</strong> é a fonte principal de títulos — serif clássica e editorial, disponível via Monotype/Fonts.com.
+        Para ambientes sem licença, utilize <strong style="font-weight:500;">Playfair Display</strong> como substituta.
+        <strong style="font-weight:500;">Jost</strong> é a fonte de texto: geométrica, leve e versátil.
+      </p>
+    </div>
+
+    <table class="typography-spec">
+      <tbody>
+        <tr>
+          <td>Display</td>
+          <td><span class="font-ivy" style="font-size:3.25rem; font-weight:400; color:#B8820A; line-height:1; letter-spacing:0.05em;">Aline Oliveira</span></td>
+          <td>IvyOra Display · 52px · Regular</td>
+        </tr>
+        <tr>
+          <td>Heading 1</td>
+          <td><span class="font-ivy" style="font-size:2.25rem; font-weight:500; color:#1C1A14; letter-spacing:0.03em;">Transformação capilar</span></td>
+          <td>IvyOra Display · 36px · Medium</td>
+        </tr>
+        <tr>
+          <td>Heading 2</td>
+          <td><span class="font-ivy" style="font-size:1.625rem; font-weight:400; color:#1C1A14; letter-spacing:0.04em;">Serviços exclusivos</span></td>
+          <td>IvyOra Display · 26px</td>
+        </tr>
+        <tr>
+          <td>Subheading</td>
+          <td><span style="font-family:'Jost',sans-serif; font-size:0.8rem; font-weight:400; color:#8C6A3A; letter-spacing:0.22em; text-transform:uppercase;">Agendamento disponível</span></td>
+          <td>Jost · 13px · tracking +0.22em · uppercase</td>
+        </tr>
+        <tr>
+          <td>Body L</td>
+          <td><span style="font-family:'Jost',sans-serif; font-size:1.125rem; font-weight:300; color:#1C1A14; line-height:1.75;">Cabelo liso, brilhante e saudável com técnicas exclusivas de alisamento.</span></td>
+          <td>Jost · 18px · Light 300</td>
+        </tr>
+        <tr>
+          <td>Body M</td>
+          <td><span style="font-family:'Jost',sans-serif; font-size:0.9375rem; font-weight:300; color:#57534e; line-height:1.75;">Resultados duradouros com fórmula personalizada para cada tipo de fio.</span></td>
+          <td>Jost · 15px · Light 300</td>
+        </tr>
+        <tr>
+          <td>Body S</td>
+          <td><span style="font-family:'Jost',sans-serif; font-size:0.875rem; font-weight:300; color:#78716c; line-height:1.75;">A partir de R$ 180 — sujeito a avaliação prévia</span></td>
+          <td>Jost · 14px · Light 300</td>
+        </tr>
+        <tr>
+          <td>Caption</td>
+          <td><span style="font-family:'Jost',sans-serif; font-size:0.6875rem; font-weight:400; color:#8C6A3A; letter-spacing:0.16em; text-transform:uppercase;">Agendamento via WhatsApp</span></td>
+          <td>Jost · 11px · tracking +0.16em · uppercase</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 2) Colors -->
+<section id="colors" class="ds-section w-full py-24 px-6 md:px-12 border-t" style="background:#F0E8D8; border-color:rgba(184,130,10,0.12);">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="section-h2">Cores & Superfícies</h2>
+
+    <h3 class="section-h3">Cores Primárias</h3>
+    <div class="color-grid mb-14">
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#B8820A;"></div><div class="color-swatch-info"><div class="color-swatch-name">Dourado Principal</div><div class="color-swatch-value">#B8820A</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#F5C842;"></div><div class="color-swatch-info"><div class="color-swatch-name">Âmbar Claro</div><div class="color-swatch-value">#F5C842</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#FFF0C0;"></div><div class="color-swatch-info"><div class="color-swatch-name">Creme Suave</div><div class="color-swatch-value">#FFF0C0</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#7A4A1E;"></div><div class="color-swatch-info"><div class="color-swatch-name">Marrom Terroso</div><div class="color-swatch-value">#7A4A1E</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#1C1A14;"></div><div class="color-swatch-info"><div class="color-swatch-name">Preto Quente</div><div class="color-swatch-value">#1C1A14</div></div></div>
+    </div>
+
+    <h3 class="section-h3">Cores de Apoio</h3>
+    <div class="color-grid mb-14">
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#D4A017;"></div><div class="color-swatch-info"><div class="color-swatch-name">Dourado Médio</div><div class="color-swatch-value">#D4A017</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#E8C97A;"></div><div class="color-swatch-info"><div class="color-swatch-name">Mel</div><div class="color-swatch-value">#E8C97A</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#F0E0AA;"></div><div class="color-swatch-info"><div class="color-swatch-name">Champagne</div><div class="color-swatch-value">#F0E0AA</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#8C6A3A;"></div><div class="color-swatch-info"><div class="color-swatch-name">Caramelo</div><div class="color-swatch-value">#8C6A3A</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#3A3020;"></div><div class="color-swatch-info"><div class="color-swatch-name">Fundo Escuro</div><div class="color-swatch-value">#3A3020</div></div></div>
+    </div>
+
+    <h3 class="section-h3">Superfícies</h3>
+    <div class="color-grid mb-14">
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#F0E8D8;"></div><div class="color-swatch-info"><div class="color-swatch-name">Fundo Principal</div><div class="color-swatch-value">#F0E8D8</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#EDE3D0;"></div><div class="color-swatch-info"><div class="color-swatch-name">Fundo Secundário</div><div class="color-swatch-value">#EDE3D0</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#ffffff; border:1px solid rgba(184,130,10,0.1);"></div><div class="color-swatch-info"><div class="color-swatch-name">Branco</div><div class="color-swatch-value">#ffffff</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:#FFF0C0;"></div><div class="color-swatch-info"><div class="color-swatch-name">Creme Claro</div><div class="color-swatch-value">#FFF0C0</div></div></div>
+    </div>
+
+    <h3 class="section-h3">Gradientes</h3>
+    <div class="color-grid mb-14">
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:linear-gradient(135deg,#D4A017,#8B5E0A);"></div><div class="color-swatch-info"><div class="color-swatch-name">Gradiente Dourado</div><div class="color-swatch-value">#D4A017 → #8B5E0A</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:linear-gradient(to top,rgba(28,26,20,0.85),transparent);"></div><div class="color-swatch-info"><div class="color-swatch-name">Overlay Escuro</div><div class="color-swatch-value">rgba(28,26,20,0.85) → transp.</div></div></div>
+      <div class="color-swatch"><div class="color-swatch-preview" style="background:linear-gradient(135deg,#FFF0C0,#E8C97A);"></div><div class="color-swatch-info"><div class="color-swatch-name">Creme a Mel</div><div class="color-swatch-value">#FFF0C0 → #E8C97A</div></div></div>
+    </div>
+
+    <h3 class="section-h3">Bordas & Divisores</h3>
+    <div class="space-y-4">
+      <div class="p-6 rounded-xl" style="background:white; border:1px solid rgba(184,130,10,0.2);">
+        <div class="text-sm font-medium mb-1" style="font-family:'Jost',sans-serif;">Borda padrão</div>
+        <div class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">rgba(184,130,10,0.2) — 0.5px ou 1px</div>
+      </div>
+      <div class="p-6 rounded-xl" style="background:white; border:1px solid rgba(184,130,10,0.4);">
+        <div class="text-sm font-medium mb-1" style="font-family:'Jost',sans-serif;">Borda de ênfase</div>
+        <div class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">rgba(184,130,10,0.4)</div>
+      </div>
+      <div class="p-6 rounded-r-xl" style="background:white; border-left:3px solid #B8820A;">
+        <div class="text-sm font-medium mb-1" style="font-family:'Jost',sans-serif;">Acento lateral (cards de serviço)</div>
+        <div class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">border-left: 3px solid #B8820A — border-radius apenas no lado direito</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3) UI Components -->
+<section id="components" class="ds-section w-full py-24 px-6 md:px-12 border-t" style="background:#EDE3D0; border-color:rgba(184,130,10,0.12);">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="section-h2">Componentes</h2>
+
+    <!-- Buttons -->
+    <h3 class="section-h3">Botões</h3>
+    <div class="component-showcase mb-16">
+      <div class="component-state">
+        <div class="component-state-label">Primário</div>
+        <button class="px-8 py-4 rounded-full text-base font-medium flex items-center gap-3 group transition-all hover:opacity-90" style="background:#1C1A14; color:#F0E8D8; font-family:'Jost',sans-serif; letter-spacing:0.13em;">
+          <span>Agendar Agora</span>
+          <iconify-icon class="group-hover:translate-x-1 transition-transform" icon="solar:arrow-right-linear" width="18"></iconify-icon>
+        </button>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Secundário</div>
+        <button class="px-8 py-4 rounded-full text-base font-medium flex items-center gap-3 transition-colors" style="background:transparent; border:1px solid rgba(184,130,10,0.4); color:#1C1A14; font-family:'Jost',sans-serif; letter-spacing:0.13em;">
+          <iconify-icon icon="solar:eye-linear" width="18"></iconify-icon>
+          <span>Ver Serviços</span>
+        </button>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Acento Dourado</div>
+        <button class="group px-7 py-4 rounded-xl font-medium transition-all duration-300 hover:-translate-y-1 flex items-center gap-3" style="background:#B8820A; color:#FFF8E7; font-family:'Jost',sans-serif; letter-spacing:0.12em; box-shadow:0 8px 24px rgba(184,130,10,0.28);">
+          <span>WhatsApp</span>
+          <iconify-icon class="group-hover:translate-x-1 transition-transform duration-300" icon="solar:arrow-right-linear" width="18"></iconify-icon>
+        </button>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Pequeno</div>
+        <a class="flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-medium transition-transform hover:scale-105 active:scale-95" style="background:#B8820A; color:#FFF8E7; font-family:'Jost',sans-serif; letter-spacing:0.1em; text-decoration:none;">Ver Preços</a>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Ghost</div>
+        <button class="px-8 py-4 rounded-full text-base font-medium transition-colors hover:bg-black/5" style="background:transparent; border:0.5px solid rgba(28,26,20,0.2); color:#57534e; font-family:'Jost',sans-serif; letter-spacing:0.12em;">Saiba Mais</button>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Ícone</div>
+        <button class="w-12 h-12 rounded-full flex items-center justify-center transition-transform hover:scale-110 active:scale-95" style="background:#1C1A14; color:#F0E8D8; box-shadow:0 4px 12px rgba(28,26,20,0.3);">
+          <iconify-icon icon="solar:arrow-right-linear" width="22"></iconify-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Inputs -->
+    <h3 class="section-h3">Inputs</h3>
+    <div class="component-showcase mb-16">
+      <div class="component-state" style="min-width:300px; max-width:480px; width:100%;">
+        <div class="component-state-label">Campo de agendamento</div>
+        <div class="relative flex items-center w-full group">
+          <iconify-icon class="absolute left-4" style="color:#B8820A;" icon="solar:calendar-linear" width="20"></iconify-icon>
+          <input class="w-full py-4 rounded-full outline-none transition-all" style="padding-left:3rem; padding-right:7.5rem; background:rgba(255,255,255,0.65); border:1px solid rgba(184,130,10,0.3); font-family:'Jost',sans-serif; font-size:14px; color:#1C1A14;" placeholder="Escolha uma data" type="text"/>
+          <button class="absolute right-1.5 top-1.5 bottom-1.5 px-5 rounded-full text-sm font-medium" style="background:#B8820A; color:#FFF8E7; font-family:'Jost',sans-serif; letter-spacing:0.08em;">Agendar</button>
+        </div>
+      </div>
+      <div class="component-state" style="min-width:240px;">
+        <div class="component-state-label">Campo simples</div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest font-medium mb-2" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Nome completo</label>
+          <input class="w-full py-3 px-4 rounded-sm outline-none transition-all" style="background:rgba(255,255,255,0.65); border:0.5px solid rgba(184,130,10,0.4); font-family:'Jost',sans-serif; font-size:14px; color:#1C1A14;" placeholder="Seu nome"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Badges & Labels -->
+    <h3 class="section-h3">Badges & Rótulos</h3>
+    <div class="component-showcase mb-16">
+      <div class="component-state">
+        <div class="component-state-label">Status</div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-sm" style="border-color:rgba(184,130,10,0.3); background:rgba(184,130,10,0.08); color:#7A4A1E; font-family:'Jost',sans-serif;">
+          <span class="w-2 h-2 rounded-full animate-pulse" style="background:#B8820A;"></span>
+          <span>Agenda aberta</span>
+        </div>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Premium</div>
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase" style="background:#FFF0C0; color:#7A5200; font-family:'Jost',sans-serif;">Premium</span>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Exclusivo</div>
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase" style="background:#2A2318; color:#E8C97A; font-family:'Jost',sans-serif;">Exclusivo</span>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Recomendado</div>
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase" style="background:#F5EDE0; color:#8C6A4A; font-family:'Jost',sans-serif;">Recomendado</span>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Disponível</div>
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase border" style="background:#FFF0C0; border-color:#E8C97A; color:#7A5200; font-family:'Jost',sans-serif;">Disponível</span>
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <h3 class="section-h3">Cards</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-14">
+
+      <!-- Image card -->
+      <div class="group relative rounded-2xl overflow-hidden shadow-2xl" style="aspect-ratio:3/4; background:#1C1A14; box-shadow:0 20px 40px rgba(28,26,20,0.25);">
+        <div class="absolute inset-0 opacity-[0.12]" style="background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(184,130,10,0.5) 30px,rgba(184,130,10,0.5) 31px);"></div>
+        <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(28,26,20,0.88) 0%,transparent 60%);"></div>
+        <div class="absolute top-5 left-5">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase" style="background:#B8820A; color:#FFF8E7; font-family:'Jost',sans-serif;">Serviço</span>
+        </div>
+        <div class="absolute bottom-6 left-6">
+          <p class="text-xs uppercase tracking-widest mb-1" style="color:rgba(240,232,216,0.55); font-family:'Jost',sans-serif;">Tratamento</p>
+          <p class="font-ivy font-light" style="color:#F0E8D8; font-size:1.375rem;">Escova Progressiva</p>
+        </div>
+      </div>
+
+      <!-- White service card -->
+      <div class="rounded-3xl p-8 border flex flex-col justify-between group transition-colors duration-300" style="background:white; border-color:rgba(184,130,10,0.2); box-shadow:0 2px 8px rgba(184,130,10,0.06);">
+        <div>
+          <div class="flex justify-between items-start mb-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:#FFF0C0; color:#B8820A;">
+              <iconify-icon icon="solar:magic-stick-3-linear" width="24"></iconify-icon>
+            </div>
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase" style="background:#FFF0C0; color:#7A5200; font-family:'Jost',sans-serif;">Mais pedido</span>
+          </div>
+          <h3 class="font-ivy font-medium mb-2" style="font-size:1.5rem; color:#1C1A14;">Progressiva Premium</h3>
+          <div class="flex items-baseline gap-1 mb-6">
+            <span class="font-ivy font-light" style="font-size:2.4rem; color:#1C1A14;">R$ 280</span>
+            <span class="text-sm" style="color:#8C6A3A; font-family:'Jost',sans-serif;">/sessão</span>
+          </div>
+          <p class="text-sm mb-8 leading-relaxed" style="color:#57534e; font-family:'Jost',sans-serif; font-weight:300;">Fórmula exclusiva de nutrição intensa. Resultado liso e brilhante por até 4 meses.</p>
+        </div>
+        <button class="w-full py-4 rounded-xl font-medium transition-colors hover:bg-stone-50" style="border:1px solid rgba(184,130,10,0.25); color:#1C1A14; font-family:'Jost',sans-serif; letter-spacing:0.1em;">Agendar</button>
+      </div>
+
+      <!-- Dark VIP card -->
+      <div class="rounded-3xl p-8 shadow-2xl flex flex-col justify-between relative overflow-hidden transform md:-translate-y-4" style="background:#1C1A14; box-shadow:0 20px 40px rgba(28,26,20,0.35);">
+        <div class="absolute top-0 right-0 p-24 rounded-full -translate-y-1/2 translate-x-1/2" style="background:rgba(184,130,10,0.08);"></div>
+        <div>
+          <div class="flex justify-between items-start mb-6 relative z-10">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(184,130,10,0.15); color:#E8C97A;">
+              <iconify-icon icon="solar:crown-star-linear" width="24"></iconify-icon>
+            </div>
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase" style="background:rgba(184,130,10,0.2); color:#E8C97A; font-family:'Jost',sans-serif;">VIP</span>
+          </div>
+          <h3 class="font-ivy font-medium mb-2 relative z-10" style="font-size:1.5rem; color:white;">Pacote Completo</h3>
+          <div class="flex items-baseline gap-1 mb-6 relative z-10">
+            <span class="font-ivy font-light" style="font-size:2.4rem; color:white;">R$ 480</span>
+            <span class="text-sm" style="color:rgba(184,130,10,0.65); font-family:'Jost',sans-serif;">/sessão</span>
+          </div>
+          <p class="text-sm mb-8 leading-relaxed relative z-10" style="color:rgba(240,232,216,0.55); font-family:'Jost',sans-serif; font-weight:300;">Progressiva + hidratação profunda + tratamento de brilho. A experiência completa.</p>
+        </div>
+        <button class="w-full py-4 rounded-xl font-medium relative z-10 transition-colors" style="background:#B8820A; color:#FFF8E7; font-family:'Jost',sans-serif; letter-spacing:0.1em; box-shadow:0 0 24px rgba(184,130,10,0.25);">Reservar Vaga</button>
+      </div>
+    </div>
+
+    <!-- Service card with lateral accent -->
+    <h3 class="section-h3">Card de Serviço — Acento Lateral</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+      <div class="p-6 border service-card-accent" style="background:white; border-color:rgba(184,130,10,0.15);">
+        <div class="mb-3" style="color:#B8820A; font-size:20px;">✦</div>
+        <h4 class="font-ivy font-medium mb-1" style="font-size:1.125rem; color:#1C1A14;">Escova Progressiva</h4>
+        <p class="text-sm mb-2" style="color:#B8820A; font-family:'Jost',sans-serif;">A partir de R$ 180</p>
+        <p class="text-xs leading-relaxed" style="color:#78716c; font-family:'Jost',sans-serif; font-weight:300;">Alisamento duradouro com fórmula exclusiva, brilho e nutrição intensa para cada tipo de fio.</p>
+      </div>
+      <div class="p-6 border service-card-accent" style="background:white; border-color:rgba(184,130,10,0.15);">
+        <div class="mb-3" style="color:#B8820A; font-size:20px;">◈</div>
+        <h4 class="font-ivy font-medium mb-1" style="font-size:1.125rem; color:#1C1A14;">Hidratação Profunda</h4>
+        <p class="text-sm mb-2" style="color:#B8820A; font-family:'Jost',sans-serif;">A partir de R$ 120</p>
+        <p class="text-xs leading-relaxed" style="color:#78716c; font-family:'Jost',sans-serif; font-weight:300;">Tratamento intensivo de umidade para fios ressecados ou quimicamente danificados.</p>
+      </div>
+    </div>
+
+    <!-- Profile & Avatar -->
+    <h3 class="section-h3">Perfil & Avatar</h3>
+    <div class="component-showcase mb-14">
+      <div class="component-state">
+        <div class="component-state-label">Perfil em pílula</div>
+        <div class="flex items-center gap-3 rounded-full px-2 py-2 pr-5 border w-fit" style="background:white; border-color:rgba(184,130,10,0.2);">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center font-ivy text-lg font-semibold flex-shrink-0" style="background:linear-gradient(135deg,#D4A017,#8B5E0A); color:#FFF8E7;">A</div>
+          <div>
+            <p class="text-sm font-medium" style="color:#1C1A14; font-family:'Jost',sans-serif;">Aline Oliveira</p>
+            <p class="text-xs" style="color:#B8820A; font-family:'Jost',sans-serif; letter-spacing:0.04em;">Especialista em alisamento</p>
+          </div>
+        </div>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Avatar iniciado</div>
+        <div class="w-12 h-12 rounded-full flex items-center justify-center font-ivy text-xl font-semibold" style="background:linear-gradient(135deg,#D4A017,#8B5E0A); color:#FFF8E7;">A</div>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Avatar ícone</div>
+        <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:#FFF0C0; color:#B8820A;">
+          <iconify-icon icon="solar:user-circle-linear" width="28"></iconify-icon>
+        </div>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Avatar escuro</div>
+        <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:#1C1A14; color:#E8C97A;">
+          <iconify-icon icon="solar:crown-star-linear" width="22"></iconify-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ornamental dividers -->
+    <h3 class="section-h3">Divisores Ornamentais</h3>
+    <div class="space-y-8 mb-14 max-w-2xl">
+      <div>
+        <div class="component-state-label mb-3">Diamante dourado</div>
+        <div class="divider-ornamental"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+      </div>
+      <div>
+        <div class="component-state-label mb-3">Linha com ícone Solar</div>
+        <div class="flex items-center gap-4">
+          <div class="flex-1 h-px" style="background:rgba(184,130,10,0.25);"></div>
+          <iconify-icon icon="solar:star-shine-linear" style="color:#B8820A;" width="16"></iconify-icon>
+          <div class="flex-1 h-px" style="background:rgba(184,130,10,0.25);"></div>
+        </div>
+      </div>
+      <div>
+        <div class="component-state-label mb-3">Linha dourada principal</div>
+        <div class="w-full h-px" style="background:#B8820A;"></div>
+      </div>
+      <div>
+        <div class="component-state-label mb-3">Linha neutra</div>
+        <div class="w-full h-px" style="background:rgba(184,130,10,0.15);"></div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <h3 class="section-h3">Tabs</h3>
+    <div class="mb-14">
+      <div class="flex items-end pl-4 md:pl-16 relative z-0 translate-y-[1px]">
+        <div class="w-28 md:w-36 h-14 rounded-t-2xl transform -rotate-2 origin-bottom-right border-t flex items-center justify-center cursor-pointer hover:-translate-y-2 transition-transform duration-300" style="background:#E8C97A; border-color:rgba(255,255,255,0.3);">
+          <iconify-icon style="color:#7A4A1E; opacity:0.85;" icon="solar:scissors-linear" width="22"></iconify-icon>
+        </div>
+        <div class="w-28 md:w-36 h-14 rounded-t-2xl transform rotate-1 origin-bottom-left border-t -ml-2 flex items-center justify-center cursor-pointer hover:-translate-y-2 transition-transform duration-300" style="background:#F0E0AA; border-color:rgba(255,255,255,0.3);">
+          <iconify-icon style="color:#7A4A1E; opacity:0.85;" icon="solar:magic-stick-3-linear" width="22"></iconify-icon>
+        </div>
+        <div class="w-28 md:w-36 h-14 rounded-t-2xl transform -rotate-1 origin-bottom-right border-t -ml-2 flex items-center justify-center cursor-pointer hover:-translate-y-2 transition-transform duration-300" style="background:#FFF0C0; border-color:rgba(255,255,255,0.3);">
+          <iconify-icon style="color:#7A4A1E; opacity:0.85;" icon="solar:star-shine-linear" width="22"></iconify-icon>
+        </div>
+      </div>
+      <div class="w-full rounded-b-2xl rounded-tr-2xl p-8" style="background:white; border:1px solid rgba(184,130,10,0.15);">
+        <p class="text-sm" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Conteúdo da aba selecionada — Cortes, Tratamentos, Destaques</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4) Layout & Spacing -->
+<section id="layout" class="ds-section w-full py-24 px-6 md:px-12 border-t" style="background:#F0E8D8; border-color:rgba(184,130,10,0.12);">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="section-h2">Layout & Espaçamento</h2>
+
+    <h3 class="section-h3">Escala de Espaçamento</h3>
+    <div class="space-y-4 mb-14">
+      <div class="flex items-center gap-4"><div class="rounded-sm flex-shrink-0" style="width:4px;height:4px;background:#B8820A;"></div><span class="text-sm" style="font-family:'Jost',sans-serif;">4px — micro espaços internos</span></div>
+      <div class="flex items-center gap-4"><div class="rounded-sm flex-shrink-0" style="width:8px;height:8px;background:#B8820A;"></div><span class="text-sm" style="font-family:'Jost',sans-serif;">8px — gap entre elementos inline</span></div>
+      <div class="flex items-center gap-4"><div class="rounded-sm flex-shrink-0" style="width:12px;height:12px;background:#B8820A;"></div><span class="text-sm" style="font-family:'Jost',sans-serif;">12px — padding de badges e chips</span></div>
+      <div class="flex items-center gap-4"><div class="rounded-sm flex-shrink-0" style="width:16px;height:16px;background:#B8820A;"></div><span class="text-sm" style="font-family:'Jost',sans-serif;">16px — padding interno de componentes</span></div>
+      <div class="flex items-center gap-4"><div class="rounded-sm flex-shrink-0" style="width:24px;height:24px;background:#B8820A;"></div><span class="text-sm" style="font-family:'Jost',sans-serif;">24px — espaçamento entre componentes</span></div>
+      <div class="flex items-center gap-4"><div class="rounded-sm flex-shrink-0" style="width:32px;height:32px;background:#B8820A;"></div><span class="text-sm" style="font-family:'Jost',sans-serif;">32px — espaçamento entre seções menores</span></div>
+      <div class="flex items-center gap-4"><div class="rounded-sm flex-shrink-0" style="width:48px;height:48px;background:#B8820A;"></div><span class="text-sm" style="font-family:'Jost',sans-serif;">48px — espaçamento entre seções principais</span></div>
+    </div>
+
+    <h3 class="section-h3">Border Radius</h3>
+    <div class="flex flex-wrap gap-10 mb-14 items-end">
+      <div class="flex flex-col items-center gap-3"><div class="w-16 h-16" style="background:#B8820A; border-radius:2px;"></div><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">2px<br>botões, inputs</span></div>
+      <div class="flex flex-col items-center gap-3"><div class="w-16 h-16" style="background:#B8820A; border-radius:8px;"></div><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">8px<br>elementos UI</span></div>
+      <div class="flex flex-col items-center gap-3"><div class="w-16 h-16" style="background:#B8820A; border-radius:12px;"></div><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">12px<br>cards</span></div>
+      <div class="flex flex-col items-center gap-3"><div class="w-16 h-16" style="background:#B8820A; border-radius:24px;"></div><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">24px<br>cards grandes</span></div>
+      <div class="flex flex-col items-center gap-3"><div class="w-16 h-16" style="background:#B8820A; border-radius:9999px;"></div><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">full<br>pílulas, avatares</span></div>
+    </div>
+
+    <h3 class="section-h3">Padrão de Seção</h3>
+    <div class="space-y-4 mb-14">
+      <div class="p-6 rounded-xl" style="background:white; border:1px solid rgba(184,130,10,0.2);"><div class="text-sm font-medium mb-1" style="font-family:'Jost',sans-serif;">Seção padrão</div><div class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">py-24 px-6 md:px-12 — max-w-7xl mx-auto</div></div>
+      <div class="p-6 rounded-xl" style="background:white; border:1px solid rgba(184,130,10,0.2);"><div class="text-sm font-medium mb-1" style="font-family:'Jost',sans-serif;">Seção compacta</div><div class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">py-12 px-6</div></div>
+    </div>
+
+    <h3 class="section-h3">Layout Dividido — Label + Conteúdo</h3>
+    <div class="rounded-2xl p-8 mb-14" style="background:white; border:1px solid rgba(184,130,10,0.2);">
+      <div class="flex flex-col md:flex-row items-start gap-12 lg:gap-24">
+        <div class="w-full md:w-1/4 pt-3 flex flex-col gap-3">
+          <div class="flex items-center gap-2" style="color:#8C6A3A;">
+            <iconify-icon icon="solar:info-square-linear" width="16"></iconify-icon>
+            <span class="text-xs font-medium uppercase tracking-widest" style="font-family:'Jost',sans-serif;">Sobre</span>
+          </div>
+        </div>
+        <div class="w-full md:w-3/4">
+          <h2 class="font-ivy font-light leading-[1.1] tracking-tight" style="font-size:clamp(1.75rem,4vw,3.25rem); color:#1C1A14;">
+            Especialista em alisamento com mais de 10 anos transformando fios.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5) Motion -->
+<section id="motion" class="ds-section w-full py-24 px-6 md:px-12 border-t" style="background:#EDE3D0; border-color:rgba(184,130,10,0.12);">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="section-h2">Movimento & Interação</h2>
+
+    <h3 class="section-h3">Efeitos de Hover</h3>
+    <div class="component-showcase mb-14">
+      <div class="component-state">
+        <div class="component-state-label">Escala</div>
+        <button class="px-8 py-4 rounded-full text-base font-medium transition-transform hover:scale-105 active:scale-95" style="background:#1C1A14; color:#F0E8D8; font-family:'Jost',sans-serif;">Hover Me</button>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Elevação</div>
+        <button class="px-6 py-4 rounded-xl font-medium transition-all duration-300 transform hover:-translate-y-1" style="background:#B8820A; color:#FFF8E7; font-family:'Jost',sans-serif; box-shadow:0 8px 24px rgba(184,130,10,0.28);">Hover Me</button>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Rotação</div>
+        <div class="w-40 rounded-2xl p-4 shadow-xl transform rotate-[3deg] hover:rotate-0 transition-transform duration-500 border" style="background:#1C1A14; border-color:rgba(184,130,10,0.3);">
+          <div style="color:#F0E8D8; font-family:'Jost',sans-serif; font-size:13px;">Hover para girar</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-h3">Transições</h3>
+    <div class="component-showcase mb-14">
+      <div class="component-state">
+        <div class="component-state-label">Cor do texto</div>
+        <a class="text-base transition-colors hover:text-[#1C1A14]" style="color:#8C6A3A; font-family:'Jost',sans-serif; text-decoration:none;">Link de navegação</a>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Seta animada</div>
+        <button class="px-8 py-4 rounded-full text-base font-medium flex items-center gap-3 group transition-all" style="background:#1C1A14; color:#F0E8D8; font-family:'Jost',sans-serif;">
+          <span>Hover Me</span>
+          <iconify-icon class="group-hover:translate-x-1 transition-transform" icon="solar:arrow-right-linear" width="18"></iconify-icon>
+        </button>
+      </div>
+      <div class="component-state">
+        <div class="component-state-label">Pulse (status)</div>
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full animate-pulse" style="background:#B8820A;"></div>
+          <span class="text-sm" style="font-family:'Jost',sans-serif;">Agenda aberta</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-h3">Duração & Timing</h3>
+    <div class="space-y-4 mb-14">
+      <div class="p-6 rounded-xl" style="background:white; border:1px solid rgba(184,130,10,0.2);"><div class="text-sm font-medium mb-1" style="font-family:'Jost',sans-serif;">Rápida — cores e opacidade</div><div class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">transition-colors (200ms)</div></div>
+      <div class="p-6 rounded-xl" style="background:white; border:1px solid rgba(184,130,10,0.2);"><div class="text-sm font-medium mb-1" style="font-family:'Jost',sans-serif;">Média — transformações</div><div class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">transition-all duration-300 (300ms)</div></div>
+      <div class="p-6 rounded-xl" style="background:white; border:1px solid rgba(184,130,10,0.2);"><div class="text-sm font-medium mb-1" style="font-family:'Jost',sans-serif;">Lenta — rotações e efeitos visuais</div><div class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">transition-transform duration-500 (500ms)</div></div>
+      <div class="p-6 rounded-xl" style="background:white; border:1px solid rgba(184,130,10,0.2);"><div class="text-sm font-medium mb-1" style="font-family:'Jost',sans-serif;">Imagem — grayscale e scale</div><div class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">transition-all duration-700 (700ms)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6) Icons -->
+<section id="icons" class="ds-section w-full py-24 px-6 md:px-12 border-t" style="background:#F0E8D8; border-color:rgba(184,130,10,0.12);">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="section-h2">Ícones</h2>
+    <p class="text-lg mb-10 max-w-2xl leading-relaxed" style="color:#57534e; font-family:'Jost',sans-serif; font-weight:300;">
+      Sistema baseado em <strong style="font-weight:500;">Iconify com Solar icon set</strong> (estilo linear). Ícones herdam a cor do texto e são dimensionados via atributo <code style="background:rgba(184,130,10,0.1); padding:2px 7px; border-radius:4px; font-size:12px; font-family:monospace;">width</code>.
+    </p>
+
+    <h3 class="section-h3">Tamanhos</h3>
+    <div class="flex items-end gap-8 mb-14 flex-wrap">
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:star-fall-linear" style="color:#B8820A;" width="16"></iconify-icon><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">16px</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:star-fall-linear" style="color:#B8820A;" width="20"></iconify-icon><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">20px</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:star-fall-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">24px</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:star-fall-linear" style="color:#B8820A;" width="32"></iconify-icon><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">32px</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:star-fall-linear" style="color:#B8820A;" width="40"></iconify-icon><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">40px</span></div>
+    </div>
+
+    <h3 class="section-h3">Variações de Cor</h3>
+    <div class="flex items-center gap-8 mb-14 flex-wrap">
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:heart-linear" style="color:#1C1A14;" width="24"></iconify-icon><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Preto quente</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:heart-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Dourado</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:heart-linear" style="color:#8C6A3A;" width="24"></iconify-icon><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Caramelo</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:heart-linear" style="color:#E8C97A;" width="24"></iconify-icon><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Mel</span></div>
+      <div class="flex flex-col items-center gap-2 p-2 rounded-lg" style="background:#1C1A14;"><iconify-icon icon="solar:heart-linear" style="color:#F0E8D8;" width="24"></iconify-icon><span class="text-xs" style="color:#E8C97A; font-family:'Jost',sans-serif;">Creme</span></div>
+    </div>
+
+    <h3 class="section-h3">Ícones de Serviço</h3>
+    <div class="grid grid-cols-4 md:grid-cols-8 gap-6 mb-14">
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:scissors-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Corte</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:magic-stick-3-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Tratamento</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:star-shine-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Premium</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:crown-star-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">VIP</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:heart-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Favorito</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:calendar-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Agenda</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:phone-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Contato</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:map-point-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Local</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:clock-circle-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Horário</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:check-circle-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Confirmado</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:user-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Perfil</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:chat-round-line-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">WhatsApp</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:star-fall-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Destaque</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:shield-check-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Garantia</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:eye-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Ver</span></div>
+      <div class="flex flex-col items-center gap-2"><iconify-icon icon="solar:arrow-right-linear" style="color:#B8820A;" width="24"></iconify-icon><span class="text-xs text-center" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Navegar</span></div>
+    </div>
+
+    <h3 class="section-h3">Ícones em Container Circular</h3>
+    <div class="flex flex-wrap gap-8 mb-14">
+      <div class="flex flex-col items-center gap-2">
+        <div class="w-11 h-11 rounded-full flex items-center justify-center border" style="background:#FFF0C0; border-color:#E8C97A; color:#7A5200;"><iconify-icon icon="solar:scissors-linear" width="20"></iconify-icon></div>
+        <span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Creme</span>
+      </div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="w-11 h-11 rounded-full flex items-center justify-center" style="background:#B8820A; color:#FFF8E7;"><iconify-icon icon="solar:magic-stick-3-linear" width="20"></iconify-icon></div>
+        <span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Dourado</span>
+      </div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="w-11 h-11 rounded-full flex items-center justify-center" style="background:#1C1A14; color:#E8C97A;"><iconify-icon icon="solar:crown-star-linear" width="20"></iconify-icon></div>
+        <span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Escuro</span>
+      </div>
+      <div class="flex flex-col items-center gap-2">
+        <div class="w-11 h-11 rounded-full flex items-center justify-center border" style="background:transparent; border-color:rgba(184,130,10,0.45); color:#B8820A;"><iconify-icon icon="solar:star-shine-linear" width="20"></iconify-icon></div>
+        <span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Outline</span>
+      </div>
+    </div>
+
+    <h3 class="section-h3">Redes Sociais (Simple Icons)</h3>
+    <div class="flex flex-wrap items-center gap-8 mb-14" style="opacity:0.65;">
+      <iconify-icon style="color:#1C1A14;" icon="simple-icons:instagram" width="28"></iconify-icon>
+      <iconify-icon style="color:#1C1A14;" icon="simple-icons:whatsapp" width="28"></iconify-icon>
+      <iconify-icon style="color:#1C1A14;" icon="simple-icons:facebook" width="28"></iconify-icon>
+      <iconify-icon style="color:#1C1A14;" icon="simple-icons:tiktok" width="28"></iconify-icon>
+      <iconify-icon style="color:#1C1A14;" icon="simple-icons:youtube" width="28"></iconify-icon>
+    </div>
+
+    <h3 class="section-h3">Símbolos Ornamentais da Marca</h3>
+    <div class="flex flex-wrap gap-10">
+      <div class="flex flex-col items-center gap-2"><span style="font-size:24px; color:#B8820A;">✦</span><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Destaque</span></div>
+      <div class="flex flex-col items-center gap-2"><span style="font-size:24px; color:#B8820A;">♦</span><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Divisor</span></div>
+      <div class="flex flex-col items-center gap-2"><span style="font-size:24px; color:#B8820A;">❋</span><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Beleza</span></div>
+      <div class="flex flex-col items-center gap-2"><span style="font-size:24px; color:#B8820A;">◈</span><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Categoria</span></div>
+      <div class="flex flex-col items-center gap-2"><span style="font-size:24px; color:#B8820A;">↗</span><span class="text-xs" style="color:#8C6A3A; font-family:'Jost',sans-serif;">Ação / Link</span></div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
