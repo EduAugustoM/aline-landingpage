@@ -287,7 +287,7 @@ function App() {
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-display mb-2 text-[#FFF8E7]">O trabalho fala por si</h2>
             <DividerOrnamental />
             <p className="text-lg text-white/80 max-w-2xl mx-auto font-light">
-              Resultados reais de clientes atendidas no estúdio. Passe o mouse para pausar.
+              Resultados reais de clientes atendidas no estúdio.
             </p>
           </div>
         </div>
@@ -311,7 +311,7 @@ function App() {
               <div className="flex-1 h-[1px] bg-primary/30"></div>
             </div>
             <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto px-4">
-              Todos os procedimentos são realizados com produtos selecionados e técnica personalizada para o seu tipo de fio.
+              Todos os procedimentos são realizados com produtos selecionados e técnica personalizada.
             </p>
           </div>
 
