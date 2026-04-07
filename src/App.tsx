@@ -5,6 +5,79 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Icon } from '@iconify/react';
 import { Badge, Button, DividerOrnamental } from './components/ui';
 
+const portfolioImages = [
+  '/assets/carrossel-0.jpg',
+  '/assets/carrossel-1.jpg',
+  '/assets/carrossel-2.jpg',
+  '/assets/carrossel-3.jpg',
+  '/assets/carrossel-4.jpg',
+  '/assets/carrossel-5.jpg',
+  '/assets/carrossel-6.jpg',
+  '/assets/carrossel-7.jpg',
+  '/assets/carrossel-8.jpg',
+  '/assets/carrossel-9.jpg',
+  '/assets/carrossel-10.jpg',
+  '/assets/carrossel-11.jpg',
+  '/assets/carrossel-12.jpg',
+];
+
+function AutoCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const animRef = useRef<gsap.core.Tween | null>(null);
+  const posRef = useRef(0);
+  const CARD_W = 280 + 20; // width + gap
+  const total = portfolioImages.length;
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const totalW = CARD_W * total;
+
+    const animate = () => {
+      animRef.current = gsap.to(posRef, {
+        current: posRef.current + totalW,
+        duration: total * 4,
+        ease: 'none',
+        repeat: -1,
+        onUpdate: () => {
+          const x = -(posRef.current % totalW);
+          gsap.set(track, { x });
+        },
+      });
+    };
+
+    animate();
+
+    return () => {
+      animRef.current?.kill();
+    };
+  }, []);
+
+  // Duplicate images for seamless loop
+  const images = [...portfolioImages, ...portfolioImages];
+
+  return (
+    <div className="w-full overflow-hidden">
+      <div ref={trackRef} className="flex gap-5 will-change-transform">
+        {images.map((src, i) => (
+          <div
+            key={i}
+            className="shrink-0 rounded-[1.5rem] overflow-hidden border border-white/10 shadow-2xl" style={{ width: '280px', height: '350px' }}
+          >
+            <img
+              src={src}
+              alt={`Portfólio ${(i % total) + 1}`}
+              className="w-full h-full object-cover"
+              draggable={false}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
@@ -90,7 +163,7 @@ function App() {
         </div>
         <div className="hidden md:flex relative items-center">
           <div className="flex gap-8 items-center text-sm font-medium tracking-wide">
-            {['Início', 'antes-depois', 'serviços', 'diferenciais', 'depoimentos', 'sobre'].map((sec) => (
+            {['Início', 'portfolio', 'serviços', 'diferenciais', 'depoimentos', 'sobre'].map((sec) => (
               <a
                 key={sec}
                 id={`link-${sec}`}
@@ -124,15 +197,15 @@ function App() {
               <span className="text-primary italic font-body font-light tracking-wide text-2xl md:text-5xl">A L I S A M E N T O S</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed font-light">
-              Técnicas exclusivas de alisamento que respeitam cada fio — do rebelde ao delicado. 
-              Resultado real, duradouro e sem danos.
+              Técnicas exclusivas de alisamento que deixam os fios lisos e duradouros.
+              Resultados reais e de alta performance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
               <Button href="https://wa.me/5564993416869" target="_blank" rel="noopener noreferrer" className="bg-foreground text-background hover:bg-foreground/80 border-none px-8 rounded-full">
                 Agendar meu horário
                 <Icon icon="lucide:arrow-right" className="ml-2" />
               </Button>
-              <Button href="#antes-depois" variant="secondary" className="border-primary/30 hover:border-primary text-foreground px-8 rounded-full">
+              <Button href="#portfolio" variant="secondary" className="border-primary/30 hover:border-primary text-foreground px-8 rounded-full">
                 <Icon icon="solar:eye-linear" className="mr-2" />
                 Ver Resultados
               </Button>
@@ -206,30 +279,24 @@ function App() {
         </div>
       </section>
 
-      {/* 2. Prova Visual */}
-      <section id="antes-depois" className="gsap-panel w-full min-h-screen py-32 bg-[#1C1A14] text-white px-6 md:px-12 z-10 shadow-2xl relative">
+      {/* 2. Portfólio */}
+      <section id="portfolio" className="gsap-panel w-full py-32 bg-[#1C1A14] text-white z-10 shadow-2xl relative overflow-hidden">
         <div className="max-w-7xl mx-auto h-full flex flex-col justify-center">
-          <div className="text-center mb-16 gsap-fade-up">
-            {/* Correção de cores: Texto estipulado rigidamente para aparecer */}
-            <Badge className="border-white/20 text-[#FFF0C0] bg-white/5">Antes e Depois</Badge>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display mb-2 text-[#FFF8E7]">Resultados que falam por si</h2>
+          <div className="text-center mb-16 gsap-fade-up px-6 md:px-12">
+            <Badge className="border-white/20 text-[#FFF0C0] bg-white/5">Portfólio</Badge>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display mb-2 text-[#FFF8E7]">O trabalho fala por si</h2>
             <DividerOrnamental />
             <p className="text-lg text-white/80 max-w-2xl mx-auto font-light">
-              Antes e depois reais de clientes atendidas no estúdio. Sem filtro, sem edição.
+              Resultados reais de clientes atendidas no estúdio. Passe o mouse para pausar.
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 gsap-stagger-list relative z-10">
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="relative aspect-[4/5] rounded-[2rem] overflow-hidden bg-white/5 border border-white/10 shadow-2xl">
-                <img src={`/assets/antes-depois-1.jpeg`} alt="Antes e Depois" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-sm text-white/50 mt-12 gsap-fade-up font-light tracking-wide">
-            Cada resultado é único porque cada cabelo é único.
-          </p>
         </div>
+        <div className="mt-4">
+          <AutoCarousel />
+        </div>
+        <p className="text-center text-sm text-white/50 mt-12 gsap-fade-up font-light tracking-wide px-6">
+          Cada resultado é único porque cada cabelo é único.
+        </p>
       </section>
 
       {/* 3. Serviços */}
@@ -250,15 +317,15 @@ function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 gsap-stagger-list mb-8">
             {[
-              { title: "Escova Progressiva", desc: "O clássico que nunca sai de moda. Fios lisos e sem volume.", price: "180", icon: "solar:scissors-linear", theme: "bg-[#FFF0C0] border-[#E8C97A] text-[#7A5200]" },
-              { title: "Progressiva Premium", desc: "Fórmula exclusiva nutritiva profunda. Duradoura e simultânea.", price: "280", icon: "solar:star-shine-linear", theme: "bg-[#B8820A] border-[#B8820A] text-[#FFF8E7]" },
-              { title: "Botox Capilar", desc: "Redução de volume sem abrir mão dos movimentos naturais.", price: "150", icon: "solar:shield-check-linear", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
-              { title: "Hidratação Profunda", desc: "Tratamento intensivo para fios ressecados.", price: "120", icon: "solar:magic-stick-3-linear", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
-              { title: "Escova Simples", desc: "Finalização leve com muito balanço e brilho instantâneo.", price: "80", icon: "solar:leaf-linear", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
-              { title: "Cortes", desc: "Do repicado moderno ao reto minimalista, encontre a harmonia ideal.", price: "90", icon: "solar:scissors-linear", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
-              { title: "Tinturas", desc: "Cor vibrante garantindo a preservação total da saúde do cabelo.", price: "160", icon: "solar:pallete-2-linear", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
-              { title: "Design de Sobrancelhas", desc: "Moldura perfeita combinando com a arquitetura do seu rosto.", price: "45", icon: "solar:eye-linear", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
-              { title: "Pacote VIP Completo", desc: "A experiência suprema para quem não abre mão do melhor cuidado.", price: "480", icon: "solar:crown-star-linear", theme: "bg-[#1C1A14] border-[#1C1A14] text-[#E8C97A]", featured: true }
+              { title: "Progressiva", desc: "O clássico que nunca sai de moda. Fios lisos e sem volume.", price: "280", icon: "icon-park-outline:hair-brush", theme: "bg-[#FFF0C0] border-[#E8C97A] text-[#7A5200]" },
+              { title: "Lisoterapia", desc: "Fórmula exclusiva para cabelos virgens e para amantes do liso extremo.", price: "300", icon: "solar:star-shine-linear", theme: "bg-[#B8820A] border-[#B8820A] text-[#FFF8E7]" },
+              { title: "Botox Capilar", desc: "Redução de volume sem abrir mão dos movimentos naturais.", price: "200", icon: "mingcute:hair-2-fill", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
+              { title: "Hidratação", desc: "Lavagem com tratamento intensivo para fios ressecados.", price: "70", icon: "solar:magic-stick-3-linear", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
+              { title: "Escova Simples", desc: "Finalização leve com muito balanço e brilho instantâneo.", price: "80", icon: "hugeicons:hair-dryer", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
+              { title: "Cortes", desc: "Do repicado moderno ao reto minimalista, encontre a harmonia ideal.", price: "100", icon: "solar:scissors-linear", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
+              { title: "Tinturas", desc: "Cor vibrante garantindo a preservação total da saúde do cabelo.", price: "60", icon: "solar:pallete-2-linear", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
+              { title: "Design de Sobrancelhas", desc: "Moldura perfeita combinando com a arquitetura do seu rosto.", price: "60", icon: "solar:eye-linear", theme: "bg-white border-[#B8820A]/40 text-[#B8820A]" },
+              { title: "Pacote Completo", desc: "Uma experiência para quem não abre mão do melhor cuidado.", price: "340", icon: "solar:crown-star-linear", theme: "bg-[#1C1A14] border-[#1C1A14] text-[#E8C97A]", featured: true }
             ].map((service, i) => (
               <div key={i} className="group [transform-style:preserve-3d] cursor-default" style={{ transition: 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)' }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = 'translateY(-12px) scale(1.04)'}
@@ -293,7 +360,7 @@ function App() {
         <div className="max-w-7xl mx-auto h-full flex flex-col justify-center">
           
           {/* Header Centralizado */}
-          <div className="text-center mb-16 lg:mb-24 gsap-fade-up">
+          <div className="text-center mb-16 lg:mb-8 gsap-fade-up">
             <Badge className="bg-white/30 border-[#8C6A3A]/40 text-foreground">Por que a Aline?</Badge>
             <h2 className="text-5xl md:text-7xl font-display mb-2 mt-4 leading-none text-foreground">
               Não é só alisamento.<br/><i className="text-[#8C6A3A] italic">É cuidado.</i>
@@ -306,7 +373,11 @@ function App() {
             
             <div className="gsap-fade-up flex justify-center order-2 lg:order-1">
               <div className="w-full max-w-lg aspect-[4/5] md:aspect-square rounded-[3rem] overflow-hidden shadow-2xl border border-white/30 transition-all duration-700 hover:-translate-y-4 hover:rotate-2 hover:shadow-[0_20px_50px_rgba(140,106,58,0.4)]">
-                 <img src="/assets/prancheta-1.png" alt="Cuidados" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                <img
+                  src="/assets/testimonials.webp"
+                  alt="Depoimentos"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
             
@@ -335,6 +406,15 @@ function App() {
 
       {/* 5. Depoimentos */}
       <section id="depoimentos" className="gsap-panel w-full min-h-screen py-32 px-6 md:px-12 bg-background z-40 shadow-2xl relative">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: 'url(/assets/fundo.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.15,
+          }}
+        />
         <div className="max-w-7xl mx-auto h-full">
           <div className="text-center mb-16 gsap-fade-up">
             <Badge>O que dizem as clientes</Badge>
@@ -342,15 +422,15 @@ function App() {
             <DividerOrnamental />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 gsap-stagger-list mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 gsap-stagger-list mb-4">
             {[
-              { text: "Nunca imaginei que meu cabelo pudesse ficar assim. A Aline entendeu exatamente o que eu precisava.", author: "Fernanda R." },
+              { text: "Muito obrigada, minha filha está apaixonada com o cabelo dela.", author: "Maiara Oliveira" },
               { text: "Saí completamente apaixonada. Voltei três vezes desde então.", author: "Camila S." },
-              { text: "O atendimento é diferente. Cuida de verdade e o ambiente é maravilhoso. Vale a pena.", author: "Mariana T." },
-              { text: "Com a Aline, finalmente consegui o resultado que queria — o liso supremo sem quebrar.", author: "Juliana M." }
+              { text: "Não tem como não amar tudo que é feito pelas suas mãos né?!", author: "Emanuelly C." },
+              { text: "Que perfeição é seu trabalho, parabéns amei demais!", author: "Nayara Alves" }
             ].map((dep, i) => (
-              <div key={i} className="p-8 border-l-[4px] border-l-primary rounded-r-[1.5rem] bg-white border-y border-r border-foreground/10 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className="flex justify-between items-start mb-6">
+              <div key={i} className="p-8 border-l-[4px] border-l-primary rounded-r-[1.5rem] bg-white border-y border-r border-foreground/10 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative z-10">
+                <div className="flex justify-between items-start mb-2">
                   <div className="text-primary text-3xl leading-none">✦</div>
                   <div className="flex gap-1 text-[#F5C842]">
                     {[...Array(5)].map((_, idx) => (
@@ -358,7 +438,7 @@ function App() {
                     ))}
                   </div>
                 </div>
-                <p className="text-lg italic mb-8 font-light text-foreground/80 leading-relaxed">"{dep.text}"</p>
+                <p className="text-lg italic mb-2 font-light text-foreground/80 leading-relaxed">"{dep.text}"</p>
                 <div>
                   <strong className="font-display font-medium text-2xl text-foreground">{dep.author}</strong>
                 </div>
@@ -388,8 +468,9 @@ function App() {
             
              
             <div className="space-y-6 text-lg text-white/80 mb-12 font-light leading-relaxed">
-                <p>Sou especialista em alisamento capilar com 15 anos de experiência dedicados a reconstruir a harmonia dos fios — e a confiança de quem os carrega.</p>
-              <p>Hoje atendo com agenda controlada e método focado para garantir toda autonomia do seu cronograma com total dedicação em seu resultado estético.</p>
+                <p>Com quase duas décadas de trajetória dedicada à beleza, minha jornada iniciou-se como auxiliar, onde a busca constante pelo aperfeiçoamento técnico moldou a especialista que sou hoje.</p>
+                <p>Atualmente, foco minha expertise em protocolos de alisamento, um dos serviços mais prestigiados e refinados do meu portfólio, sempre priorizando o alisamento dos fios.</p>
+                <p>Em meu espaço exclusivo, cada atendimento é conduzido de forma personalizada e com agendamento. Meu compromisso é garantir resultados de excelência e uma experiência de cuidado absoluto a cada cliente.</p>
             </div>
 
             <Button href="https://wa.me/5564993416869" target="_blank" rel="noopener noreferrer" className="bg-[#B8820A] hover:bg-[#8C6A3A] text-white border-none w-full sm:w-auto">
