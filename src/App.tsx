@@ -473,7 +473,7 @@ function App() {
                 <p>Em meu espaço exclusivo, cada atendimento é conduzido de forma personalizada e com agendamento. Meu compromisso é garantir resultados de excelência e uma experiência de cuidado absoluto a cada cliente.</p>
             </div>
 
-            <Button href="https://wa.me/5564993416869" target="_blank" rel="noopener noreferrer" className="bg-[#B8820A] hover:bg-[#8C6A3A] text-white border-none w-full sm:w-auto">
+            <Button href="https://www.instagram.com/salaoaline_oliveira/" target="_blank" rel="noopener noreferrer" className="bg-[#B8820A] hover:bg-[#8C6A3A] text-white border-none w-full sm:w-auto">
               Venha me conhecer
             </Button>
           </div>
@@ -549,13 +549,15 @@ function App() {
 
         {/* Footer */}
         <footer className="absolute bottom-0 left-0 w-full py-8 text-center text-foreground/50 border-t border-transparent flex flex-col items-center">
-          <p className="font-medium tracking-wide">Aline Oliveira Alisamentos © 2026</p>
+          <p className="text-xl font-medium tracking-wide">
+            Aline Oliveira Alisamentos | Design by <a href="https://eduaugustom.github.io/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors underline underline-offset-4 decoration-primary/30">Eduardo Augusto</a> © 2026
+          </p>
           <div className="flex gap-6 mt-4 text-primary">
             <a href="https://www.instagram.com/salaoaline_oliveira/" target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 hover:scale-110 transition-transform">
-              <Icon icon="simple-icons:instagram" className="text-2xl cursor-pointer" />
+              <Icon icon="simple-icons:instagram" className="text-3xl cursor-pointer" />
             </a>
             <a href="https://wa.me/5564993416869" target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 hover:scale-110 transition-transform">
-              <Icon icon="simple-icons:whatsapp" className="text-2xl cursor-pointer" />
+              <Icon icon="simple-icons:whatsapp" className="text-3xl cursor-pointer" />
             </a>
           </div>
         </footer>
